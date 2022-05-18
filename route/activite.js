@@ -14,12 +14,12 @@ router.get('/Activite', async (req,res)=>{
 
 router.post('/Activite', async (req, res)=>{
     try {
-        await activite.find({intitule: req.params.intitule}).then(resultat=>{
+        await activite.find({intitule: req.body.intitule}).then(resultat=>{
             if(resultat.length === 0){
-                const activite = new activite(req.body);
-                activite.save(async function(){
-                    await activite.find({}).then(res=>{
-                        res.status(200).send({status : 200, data: res});
+                const activites = new activite(req.body);
+                activites.save(async function(){
+                    await activite.find({}).then(result=>{
+                        res.status(200).send({status : 200, data: result});
                     })
                 });
             }else{
